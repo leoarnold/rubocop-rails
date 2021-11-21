@@ -26,7 +26,7 @@ module RuboCop
 
         def_node_matcher :comparing_str_env_with_rails_env_on_lhs?, <<~PATTERN
           (send
-            (send (const {nil? cbase} :Rails) :env)
+            #rails_env?
             {:== :!=}
             $str
           )
@@ -36,13 +36,13 @@ module RuboCop
           (send
             $str
             {:== :!=}
-            (send (const {nil? cbase} :Rails) :env)
+            #rails_env?
           )
         PATTERN
 
         def_node_matcher :comparing_sym_env_with_rails_env_on_lhs?, <<~PATTERN
           (send
-            (send (const {nil? cbase} :Rails) :env)
+            #rails_env?
             {:== :!=}
             $sym
           )
@@ -52,7 +52,7 @@ module RuboCop
           (send
             $sym
             {:== :!=}
-            (send (const {nil? cbase} :Rails) :env)
+            #rails_env?
           )
         PATTERN
 

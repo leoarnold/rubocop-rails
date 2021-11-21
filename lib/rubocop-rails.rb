@@ -12,6 +12,7 @@ require_relative 'rubocop/rails/schema_loader/schema'
 
 RuboCop::Rails::Inject.defaults!
 
+require_relative 'rubocop/rails/language'
 require_relative 'rubocop/cop/rails_cops'
 
 RuboCop::Cop::Style::RedundantSelf.singleton_class.prepend(

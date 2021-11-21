@@ -29,7 +29,7 @@ module RuboCop
         def_node_matcher :interpolated_string_passed_to_debug, <<~PATTERN
           (send
             (send
-              (const {cbase nil?} :Rails)
+              #rails?
               :logger
             )
             :debug

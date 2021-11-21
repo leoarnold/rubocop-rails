@@ -10,9 +10,9 @@ RSpec.describe RuboCop::Cop::Rails::RootPathnameMethods, :config do
   }.each do |receiver, methods|
     methods.each do |method|
       it "registers an offense when using `#{receiver}.#{method}(Rails.public_path)` (if arity exists)" do
-        expect_offense(<<~RUBY)
-          #{receiver}.#{method}(Rails.public_path)
-          #{'^' * receiver.size}^#{'^' * method.size}^^^^^^^^^^^^^^^^^^^ `Rails.public_path` is a `Pathname` so you can just append `##{method}`.
+        expect_offense(<<~RUBY, receiver: receiver, method: method)
+          %{receiver}.%{method}(Rails.public_path)
+          ^{receiver}^^{method}^^^^^^^^^^^^^^^^^^^ `Rails.public_path` is a `Pathname` so you can just append `##{method}`.
         RUBY
 
         expect_correction(<<~RUBY)
@@ -21,9 +21,9 @@ RSpec.describe RuboCop::Cop::Rails::RootPathnameMethods, :config do
       end
 
       it "registers an offense when using `::#{receiver}.#{method}(::Rails.root.join(...))` (if arity exists)" do
-        expect_offense(<<~RUBY)
-          ::#{receiver}.#{method}(::Rails.root.join('db', 'schema.rb'))
-          ^^#{'^' * receiver.size}^#{'^' * method.size}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `::Rails.root` is a `Pathname` so you can just append `##{method}`.
+        expect_offense(<<~RUBY, receiver: receiver, method: method)
+          ::%{receiver}.%{method}(::Rails.root.join('db', 'schema.rb'))
+          ^^^{receiver}^^{method}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `::Rails.root` is a `Pathname` so you can just append `##{method}`.
         RUBY
 
         expect_correction(<<~RUBY)
@@ -32,9 +32,9 @@ RSpec.describe RuboCop::Cop::Rails::RootPathnameMethods, :config do
       end
 
       it "registers an offense when using `::#{receiver}.#{method}(::Rails.root.join(...), ...)` (if arity exists)" do
-        expect_offense(<<~RUBY)
-          ::#{receiver}.#{method}(::Rails.root.join('db', 'schema.rb'), 20, 5)
-          ^^#{'^' * receiver.size}^#{'^' * method.size}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `::Rails.root` is a `Pathname` so you can just append `##{method}`.
+        expect_offense(<<~RUBY, receiver: receiver, method: method)
+          ::%{receiver}.%{method}(::Rails.root.join('db', 'schema.rb'), 20, 5)
+          ^^^{receiver}^^{method}^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `::Rails.root` is a `Pathname` so you can just append `##{method}`.
         RUBY
 
         expect_correction(<<~RUBY)

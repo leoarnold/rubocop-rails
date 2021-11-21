@@ -26,11 +26,6 @@ module RuboCop
 
         RESTRICT_ON_SEND = %i[join].to_set.freeze
 
-        # @!method rails_root?(node)
-        def_node_matcher :rails_root?, <<~PATTERN
-          (send (const {nil? cbase} :Rails) {:root :public_path})
-        PATTERN
-
         # @!method join?(node)
         def_node_matcher :join?, <<~PATTERN
           (send _ :join $...)

@@ -27,8 +27,7 @@ module RuboCop
 
         def_node_matcher :rails_root_public, <<~PATTERN
           (send
-            (send
-              $(const {nil? cbase} :Rails) :root) :join
+            (send $#rails? :root) :join
             (str $#public_path?) $...)
         PATTERN
 

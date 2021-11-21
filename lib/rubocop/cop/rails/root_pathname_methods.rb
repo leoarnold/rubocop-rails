@@ -164,11 +164,6 @@ module RuboCop
           }
         PATTERN
 
-        # @!method rails_root?(node)
-        def_node_matcher :rails_root?, <<~PATTERN
-          (send (const {nil? cbase} :Rails) {:root :public_path})
-        PATTERN
-
         def on_send(node)
           evidence(node) do |method, path, args, rails_root|
             add_offense(node, message: format(MSG, method: method, rails_root: rails_root.source)) do |corrector|

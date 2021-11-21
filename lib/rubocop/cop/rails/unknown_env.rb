@@ -22,12 +22,6 @@ module RuboCop
         MSG_SIMILAR = 'Unknown environment `%<name>s`. ' \
                       'Did you mean `%<similar>s`?'
 
-        def_node_matcher :rails_env?, <<~PATTERN
-          (send
-            {(const nil? :Rails) (const (cbase) :Rails)}
-            :env)
-        PATTERN
-
         def_node_matcher :unknown_environment_predicate?, <<~PATTERN
           (send #rails_env? $#unknown_env_predicate?)
         PATTERN

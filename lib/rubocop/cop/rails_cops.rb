@@ -7,6 +7,7 @@ require_relative 'mixin/enforce_superclass'
 require_relative 'mixin/index_method'
 require_relative 'mixin/migrations_helper'
 require_relative 'mixin/target_rails_version'
+require_relative 'rails/base'
 
 require_relative 'rails/action_controller_test_case'
 require_relative 'rails/action_filter'
